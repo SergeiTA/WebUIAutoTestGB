@@ -1,60 +1,60 @@
 package org.webAutoTest.scenarios;
 
 import org.openqa.selenium.By;
-import org.webAutoTest.engine.WebDriverUtils;
-import org.webAutoTest.enums.WebAddresses;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.webAutoTest.enums.GeographicalLocations;
 
 public class YandexWeatherForecast {
-    //Так как по факту это еще не тесты, а просто сценарии действий пользователя, решил расположить классы НЕ в test
 
-    public static void openCityPage() throws InterruptedException {
-        WebDriverUtils webDriverUtils = new WebDriverUtils();
+    public static void openCityPage(WebDriver webDriver, WebDriverWait webDriverWait
+            , GeographicalLocations geographicalLocations) {
 
-        webDriverUtils.getDriver().get(WebAddresses.YANDEX_WEATHER.getWebAddress());
+        webDriver.findElement(By.xpath("//header//input"))
+                .sendKeys(geographicalLocations.getLocationName());
 
-        webDriverUtils.getDriver().findElement(By.xpath("//header//input")).sendKeys("Ростов-на-Дону");
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By
+                .xpath("//li[@data-text='" + geographicalLocations.getLocationName()
+                        + ", " + geographicalLocations.getRegionName() + "']")));
 
-        Thread.sleep(2000);
-
-        webDriverUtils
-                .getDriver()
-                .findElement(By.xpath("//li[@data-text='Ростов-на-Дону, Ростовская область']"))
+        webDriver
+                .findElement(By.xpath("//li[@data-text='" + geographicalLocations.getLocationName()
+                        + ", " + geographicalLocations.getRegionName() + "']"))
                 .click();
 
-        Thread.sleep(2000);
-        webDriverUtils.getDriver().quit();
 
-        //Далее шли два сравенения по сценарию, пока сюда не пишем
+
     }
 
-    public static void openCityMapPage() throws InterruptedException {
-        //Не выношу объявление webDriverUtils из методов, что бы не делать его априори статичным
-        //Вероятно в будущем потребуеться распараллеливать выполенние методов
-        WebDriverUtils webDriverUtils = new WebDriverUtils();
+    public static void openCityMapPage(WebDriver webDriver, WebDriverWait webDriverWait
+            , GeographicalLocations geographicalLocations) {
 
-        webDriverUtils.getDriver().get(WebAddresses.YANDEX_WEATHER.getWebAddress());
+        webDriver.findElement(By.xpath("//header//input")).sendKeys("Ростов-на-Дону");
 
-        webDriverUtils.getDriver().findElement(By.xpath("//header//input")).sendKeys("Ростов-на-Дону");
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By
+                .xpath("//li[@data-text='" + geographicalLocations.getLocationName()
+                        + ", " + geographicalLocations.getRegionName() + "']")));
 
-        Thread.sleep(2000);
-
-        webDriverUtils
-                .getDriver()
-                .findElement(By.xpath("//li[@data-text='Ростов-на-Дону, Ростовская область']"))
+        webDriver
+                .findElement(By.xpath("//li[@data-text='" + geographicalLocations.getLocationName()
+                        + ", " + geographicalLocations.getRegionName() + "']"))
                 .click();
 
-        Thread.sleep(2000);
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By
+                .xpath("//a//div[contains(., 'Показать на карте')]")));
 
-        webDriverUtils
-                .getDriver()
+        webDriver
                 .findElement(By.xpath("//a//div[contains(., 'Показать на карте')]"))
                 .click();
+    }
 
-
-        Thread.sleep(2000);
-        webDriverUtils.getDriver().quit();
-
-        //Далее шли два сравенения по сценарию, пока сюда не пишем
+    public static void openCityPageByStringAndPressEnter(WebDriver webDriver, String inputString) {
+        WebElement webElement = webDriver.findElement(By.xpath("//header//input"));
+        webElement.sendKeys(inputString);
+        webElement.sendKeys(Keys.ENTER);
     }
 
 
