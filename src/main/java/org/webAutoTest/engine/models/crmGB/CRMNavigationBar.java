@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.webAutoTest.engine.models.BasePageObject;
 
 import java.util.List;
@@ -24,8 +25,8 @@ public class CRMNavigationBar extends BasePageObject {
     @FindBy(xpath = "//a//span[contains(text(), 'Все проекты')]")
     private WebElement allProjects;
 
-    public CRMNavigationBar(WebDriver webDriver) {
-        super(webDriver);
+    public CRMNavigationBar(WebDriver webDriver, WebDriverWait webDriverWait) {
+        super(webDriver, webDriverWait);
         action = new Actions(webDriver);
     }
 

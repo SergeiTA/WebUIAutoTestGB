@@ -9,9 +9,9 @@ public class BasePageObject {
     public WebDriver webDriver;
     public WebDriverWait webDriverWait;
 
-    public BasePageObject(WebDriver webDriver) {
+    public BasePageObject(WebDriver webDriver, WebDriverWait webDriverWait) {
         this.webDriver = webDriver;
-        this.webDriverWait = new WebDriverWait(webDriver, 5);
+        this.webDriverWait = webDriverWait;
         PageFactory.initElements(webDriver, this);
     }
 }

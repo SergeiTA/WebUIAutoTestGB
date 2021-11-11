@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.webAutoTest.engine.models.BasePageObject;
 
 public class CRMCreateProject extends BasePageObject {
@@ -34,9 +35,9 @@ public class CRMCreateProject extends BasePageObject {
     @FindBy(xpath = "//button[contains(., 'Сохранить')]")
     private WebElement saveProjectButton;
 
-    public CRMCreateProject(WebDriver webDriver) {
-        super(webDriver);
-        this.crmNavigationBar = new CRMNavigationBar(webDriver);
+    public CRMCreateProject(WebDriver webDriver, WebDriverWait webDriverWait) {
+        super(webDriver, webDriverWait);
+        this.crmNavigationBar = new CRMNavigationBar(webDriver, webDriverWait);
     }
 
     public CRMCreateProject inputProjectName(String projectName) {

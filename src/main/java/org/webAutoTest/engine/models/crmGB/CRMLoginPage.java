@@ -3,6 +3,7 @@ package org.webAutoTest.engine.models.crmGB;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.webAutoTest.engine.models.BasePageObject;
 
 public class CRMLoginPage extends BasePageObject {
@@ -16,8 +17,8 @@ public class CRMLoginPage extends BasePageObject {
     @FindBy(xpath = "//button[@id='_submit']")
     private WebElement submitButton;
 
-    public CRMLoginPage(WebDriver webDriver) {
-        super(webDriver);
+    public CRMLoginPage(WebDriver webDriver, WebDriverWait webDriverWait) {
+        super(webDriver, webDriverWait);
     }
 
     public WebElement getLoginInputField() {
