@@ -1,5 +1,6 @@
 package org.webAutoTest.engine.models.crmGB;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,6 +21,7 @@ public class CRMProjectPage extends BasePageObject {
         super(webDriver, webDriverWait);
     }
 
+    @Step("Проверяем имя проекта")
     public WebElement getProjectName() {
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By
                 .xpath(xPathProjectName)));

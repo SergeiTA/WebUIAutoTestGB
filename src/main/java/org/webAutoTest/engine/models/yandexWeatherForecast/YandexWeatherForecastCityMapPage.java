@@ -1,5 +1,6 @@
 package org.webAutoTest.engine.models.yandexWeatherForecast;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -30,11 +31,13 @@ public class YandexWeatherForecastCityMapPage extends YandexBasePageObject {
         return cityDescription;
     }
 
+    @Step("Ожидаем появления карты географической локации")
     public YandexWeatherForecastCityMapPage isMapLayerVisible() {
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathMapLayer)));
         return this;
     }
 
+    @Step("Проверяем текст описания географической локации")
     public String getCityDescriptionText() {
         return cityDescription.getText();
     }

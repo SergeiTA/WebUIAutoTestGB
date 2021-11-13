@@ -1,5 +1,6 @@
 package org.webAutoTest.engine.models.crmGB;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -34,6 +35,7 @@ public class CRMNavigationBar extends BasePageObject {
         return menuItems;
     }
 
+    @Step("Навести курсор мышки на элемент меню навигации")
     public CRMNavigationBar mouseOverOnItemFoundedByText(String text) {
         webDriverWait.until(ExpectedConditions
                 .visibilityOfElementLocated(By
@@ -45,6 +47,7 @@ public class CRMNavigationBar extends BasePageObject {
         return this;
     }
 
+    @Step("Кликнуть элементу выпадающего меню навигации \"Все проекты\"")
     public void clickOnAllProjectsItem() {
         allProjects.click();
     }

@@ -1,5 +1,6 @@
 package org.webAutoTest.engine.models.yandexWeatherForecast;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -40,20 +41,24 @@ public class YandexNavBarSearchResultsPage extends YandexBasePageObject {
         return resultsRows;
     }
 
+    @Step("Ожидаем появления результатов поиска по введенному тексту")
     public YandexNavBarSearchResultsPage isResultsAreaDisplayed() {
        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathResultsArea)));
        return this;
     }
 
+    @Step("Ожидаем появления результатов поиска по введенному тексту")
     public YandexNavBarSearchResultsPage isResultsRowsDisplayed() {
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xPathResultsRows)));
         return this;
     }
 
+    @Step("Проверяем текст результатов поиска")
     public String getResultsAreaText() {
         return resultsArea.getText();
     }
 
+    @Step("Проверяем заголовок поля для результатов поиска")
     public String getResultsTitleText() {
         return resultsTitle.getText();
     }

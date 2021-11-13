@@ -1,5 +1,6 @@
 package org.webAutoTest.engine.models.yandexWeatherForecast;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -37,6 +38,7 @@ public class YandexNavigationBar extends BasePageObject {
         return this;
     }
 
+    @Step("Ищем подсказки поиска по географической локации")
     public WebElement findSuggestionByGeographicalLocation(GeographicalLocations geographicalLocations) {
         String suggestionText = geographicalLocations.getLocationName()
                 + ", " + geographicalLocations.getRegionName();
@@ -47,10 +49,12 @@ public class YandexNavigationBar extends BasePageObject {
                 .filter(e -> e.getText().equals(suggestionText)).findFirst().get();
     }
 
+    @Step("Кликнуть на подсказку поиска по географической локации")
     public void clickOnSuggestionFoundedByGeographicalLocation(GeographicalLocations geographicalLocations) {
         findSuggestionByGeographicalLocation(geographicalLocations).click();
     }
 
+    @Step("Нажать клавишу \"Enter\", когда поле поиска в фокусе ")
     public void pressEnterOnSearchInputField() {
         searchInputField.sendKeys(Keys.ENTER);
     }
