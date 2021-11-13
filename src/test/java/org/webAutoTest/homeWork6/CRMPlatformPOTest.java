@@ -1,17 +1,22 @@
 package org.webAutoTest.homeWork6;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.logging.LogType;
 import org.webAutoTest.engine.PropertiesReader;
 import org.webAutoTest.engine.WebDriverUtils;
 import org.webAutoTest.engine.models.crmGB.*;
 import org.webAutoTest.enums.PropertiesFields;
 import org.webAutoTest.enums.WebAddresses;
 
+import java.util.List;
 import java.util.UUID;
 
+@Story("Зарегистрированный пользователь может создать проект")
 public class CRMPlatformPOTest {
 
     static WebDriverUtils webDriverUtils = new WebDriverUtils();
@@ -28,6 +33,9 @@ public class CRMPlatformPOTest {
     }
 
     @Test
+    @Feature("Создание проекта")
+    @DisplayName("Создание нового проекта")
+    @Description("Создание нового проекта зарегистрированным пользователем с шага авторизации пользователя")
     void positiveCRMCreateProjectPOTest() {
         new CRMMainPage(webDriverUtils.getDriver(), webDriverUtils.getWebDriverWait())
                 .getCrmNavigationBar().mouseOverOnItemFoundedByText("Проекты")
@@ -52,6 +60,10 @@ public class CRMPlatformPOTest {
 
     @AfterEach
     void afterEach() {
+        List<LogEntry> browserLogs = webDriverUtils.getDriver().manage().logs().get(LogType.BROWSER).getAll();
+        for (LogEntry logItem: browserLogs) {
+            Allure.addAttachment("Записть в логе браузера: ", logItem.getMessage());
+        }
         webDriverUtils.getDriver().quit();
     }
 

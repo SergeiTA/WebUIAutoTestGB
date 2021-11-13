@@ -1,5 +1,6 @@
 package org.webAutoTest.engine.models.crmGB;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -40,6 +41,7 @@ public class CRMCreateProject extends BasePageObject {
         this.crmNavigationBar = new CRMNavigationBar(webDriver, webDriverWait);
     }
 
+    @Step("Ввести имя проекта в поле ввода")
     public CRMCreateProject inputProjectName(String projectName) {
         webDriverWait.until(ExpectedConditions
                 .visibilityOfElementLocated(By
@@ -48,26 +50,31 @@ public class CRMCreateProject extends BasePageObject {
         return this;
     }
 
+    @Step("Выбрать бизнес юнит в выпадающем списке")
     public CRMCreateProject selectBusinessUnitByText(String selectText) {
         new Select(selectBusinessUnit).selectByVisibleText(selectText);
         return this;
     }
 
+    @Step("Выбрать куратора проекта в выпадающем списке")
     public CRMCreateProject selectProjectCuratorByText(String selectText) {
         new Select(selectProjectCurator).selectByVisibleText(selectText);
         return this;
     }
 
+    @Step("Выбрать руководителя проекта проекта в выпадающем списке")
     public CRMCreateProject selectProjectSeniorManagerByText(String selectText) {
         new Select(selectProjectSeniorManager).selectByVisibleText(selectText);
         return this;
     }
 
+    @Step("Выбрать менеджера проекта в выпадающем списке")
     public CRMCreateProject selectProjectManagerByText(String selectText) {
         new Select(selectProjectManager).selectByVisibleText(selectText);
         return this;
     }
 
+    @Step("Кликнуть по кнопке \"Сохранить\"")
     public void clickSaveProjectButton() {
         saveProjectButton.click();
     }
