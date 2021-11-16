@@ -1,76 +1,55 @@
 package org.webAutoTest.engine.models.crmGB;
 
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.webAutoTest.engine.models.BasePageObject;
 
-public class CRMCreateProject extends BasePageObject {
+import static com.codeborne.selenide.Selenide.$;
 
-    //Это поле можно былобы вынести в класс родителя
-    // , но для этого нужно знатоь структуру сайта, иначе действие будет лишнее
+public class CRMCreateProject {
+
     CRMNavigationBar crmNavigationBar;
 
     private final String xPathInputFieldProjectName = "//input[contains(@id, 'rm_project_name')]";
 
-    @FindBy(xpath = xPathInputFieldProjectName)
-    private WebElement inputFieldProjectName;
+    private SelenideElement inputFieldProjectName = $(By.xpath(xPathInputFieldProjectName));
+    private SelenideElement selectBusinessUnit = $(By.xpath("//select[contains(@id, 'crm_project_businessUnit')]"));
+    private SelenideElement selectProjectCurator = $(By.xpath("//select[contains(@id, 'crm_project_curator')]"));
+    private SelenideElement selectProjectSeniorManager = $(By.xpath("//select[contains(@id, 'crm_project_rp')]"));
+    private SelenideElement selectProjectManager = $(By.xpath("//select[contains(@id, 'crm_project_manager')]"));
+    private SelenideElement saveProjectButton = $(By.xpath("//button[contains(., 'Сохранить')]"));
 
-    @FindBy(xpath = "//select[contains(@id, 'crm_project_businessUnit')]")
-    private WebElement selectBusinessUnit;
-
-    @FindBy(xpath = "//select[contains(@id, 'crm_project_curator')]")
-    private WebElement selectProjectCurator;
-
-    @FindBy(xpath = "//select[contains(@id, 'crm_project_rp')]")
-    private WebElement selectProjectSeniorManager;
-
-    @FindBy(xpath = "//select[contains(@id, 'crm_project_manager')]")
-    private WebElement selectProjectManager;
-
-    @FindBy(xpath = "//button[contains(., 'Сохранить')]")
-    private WebElement saveProjectButton;
-
-    public CRMCreateProject(WebDriver webDriver, WebDriverWait webDriverWait) {
-        super(webDriver, webDriverWait);
-        this.crmNavigationBar = new CRMNavigationBar(webDriver, webDriverWait);
+    public CRMCreateProject() {
+        this.crmNavigationBar = new CRMNavigationBar();
     }
 
     @Step("Ввести имя проекта в поле ввода")
     public CRMCreateProject inputProjectName(String projectName) {
-        webDriverWait.until(ExpectedConditions
-                .visibilityOfElementLocated(By
-                        .xpath(xPathInputFieldProjectName)));
         inputFieldProjectName.sendKeys(projectName);
         return this;
     }
 
     @Step("Выбрать бизнес юнит в выпадающем списке")
     public CRMCreateProject selectBusinessUnitByText(String selectText) {
-        new Select(selectBusinessUnit).selectByVisibleText(selectText);
+        selectBusinessUnit.selectOptionContainingText(selectText);
         return this;
     }
 
     @Step("Выбрать куратора проекта в выпадающем списке")
     public CRMCreateProject selectProjectCuratorByText(String selectText) {
-        new Select(selectProjectCurator).selectByVisibleText(selectText);
+        selectProjectCurator.selectOptionContainingText(selectText);
         return this;
     }
 
     @Step("Выбрать руководителя проекта проекта в выпадающем списке")
     public CRMCreateProject selectProjectSeniorManagerByText(String selectText) {
-        new Select(selectProjectSeniorManager).selectByVisibleText(selectText);
+        selectProjectSeniorManager.selectOptionContainingText(selectText);
         return this;
     }
 
     @Step("Выбрать менеджера проекта в выпадающем списке")
     public CRMCreateProject selectProjectManagerByText(String selectText) {
-        new Select(selectProjectManager).selectByVisibleText(selectText);
+        selectProjectManager.selectOptionContainingText(selectText);
         return this;
     }
 

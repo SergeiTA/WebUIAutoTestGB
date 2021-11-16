@@ -1,36 +1,26 @@
 package org.webAutoTest.engine.models.crmGB;
 
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.webAutoTest.engine.models.BasePageObject;
+import org.openqa.selenium.By;
 
-public class CRMLoginPage extends BasePageObject {
+import static com.codeborne.selenide.Selenide.$;
 
-    @FindBy(xpath = "//input[@id='prependedInput']")
-    private WebElement loginInputField;
+public class CRMLoginPage {
 
-    @FindBy(xpath = "//input[@id='prependedInput2']")
-    private WebElement passwordInputField;
+    private SelenideElement loginInputField = $(By.xpath("//input[@id='prependedInput']"));
+    private SelenideElement passwordInputField = $(By.xpath("//input[@id='prependedInput2']"));
+    private SelenideElement submitButton = $(By.xpath("//button[@id='_submit']"));
 
-    @FindBy(xpath = "//button[@id='_submit']")
-    private WebElement submitButton;
-
-    public CRMLoginPage(WebDriver webDriver, WebDriverWait webDriverWait) {
-        super(webDriver, webDriverWait);
-    }
-
-    public WebElement getLoginInputField() {
+    public SelenideElement getLoginInputField() {
         return loginInputField;
     }
 
-    public WebElement getPasswordInputField() {
+    public SelenideElement getPasswordInputField() {
         return passwordInputField;
     }
 
-    public WebElement getSubmitButton() {
+    public SelenideElement getSubmitButton() {
         return submitButton;
     }
 
