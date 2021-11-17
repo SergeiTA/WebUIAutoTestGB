@@ -1,35 +1,26 @@
 package org.webAutoTest.engine.models.yandexWeatherForecast;
 
+import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.webAutoTest.engine.models.BasePageObject;
 import org.webAutoTest.enums.GeographicalLocations;
 
-import java.util.List;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
-public class YandexNavigationBar extends BasePageObject {
+public class YandexNavigationBar {
 
-    @FindBy(xpath = "//header//input")
-    private WebElement searchInputField;
+    private SelenideElement searchInputField = $(By.xpath("//header//input"));
+    private ElementsCollection suggestionItems = $$(By.xpath("//li[@data-text]"));
 
-    @FindBy(xpath = "//li[@data-text]")
-    private List<WebElement> suggestionItems;
-
-    public YandexNavigationBar(WebDriver webDriver, WebDriverWait webDriverWait) {
-        super(webDriver, webDriverWait);
-    }
-
-    public List<WebElement> getSuggestionItems() {
+    public ElementsCollection  getSuggestionItems() {
         return suggestionItems;
     }
 
-    public WebElement getSearchInputField() {
+    public SelenideElement getSearchInputField() {
         return searchInputField;
     }
 
@@ -39,14 +30,10 @@ public class YandexNavigationBar extends BasePageObject {
     }
 
     @Step("Ищем подсказки поиска по географической локации")
-    public WebElement findSuggestionByGeographicalLocation(GeographicalLocations geographicalLocations) {
+    public SelenideElement findSuggestionByGeographicalLocation(GeographicalLocations geographicalLocations) {
         String suggestionText = geographicalLocations.getLocationName()
                 + ", " + geographicalLocations.getRegionName();
-
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By
-                .xpath("//li[@data-text='" + suggestionText + "']")));
-        return suggestionItems.stream()
-                .filter(e -> e.getText().equals(suggestionText)).findFirst().get();
+        return suggestionItems.findBy(Condition.text(suggestionText));
     }
 
     @Step("Кликнуть на подсказку поиска по географической локации")
